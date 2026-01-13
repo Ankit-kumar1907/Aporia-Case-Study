@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aporia – UX Case Study</title>
+  <style>
+    /* -------------------------
+   Root & Design Tokens
+-------------------------- */
+
+:root {
+  --bg-main: #fafafa;
+  --bg-soft: #f1f3f5;
+  --text-main: #1f2933;
+  --text-muted: #5f6c7b;
+  --accent: #2d6cdf;
+  --border-soft: #e4e7eb;
+  --warning: #9a3412;
+
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('Inter.woff2') format('woff2');
+  font-display: swap;
+}
+
+/* -------------------------
+   Global Reset
+-------------------------- */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* -------------------------
+   Layout
+-------------------------- */
+
+.layout {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border-soft);
+  background: #ffffff;
+}
+
+main {
+  margin-left: 280px;
+  padding: 3rem 4rem;
+  max-width: 960px;
+}
+
+/* -------------------------
+   Navigation
+-------------------------- */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav ul {
+  list-style: none;
+}
+
+nav li {
+  margin-bottom: 0.8rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+nav a:hover {
+  color: var(--text-main);
+}
+
+/* -------------------------
+   Typography
+-------------------------- */
+
+h1 {
+  font-size: 2.4rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  margin-top: 4rem;
+}
+
+p {
+  margin-bottom: 1.2rem;
+  color: var(--text-main);
+}
+
+.intro {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 720px;
+}
+
+/* -------------------------
+   Meta Grid
+-------------------------- */
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.meta-item {
+  background: var(--bg-soft);
+  padding: 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* -------------------------
+   Figures & Images
+-------------------------- */
+
+figure {
+  margin-top: 3rem;
+}
+
+img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+}
+
+figcaption {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* -------------------------
+   Lists
+-------------------------- */
+
+ul {
+  margin: 1rem 0 1.5rem 1.2rem;
+}
+
+li {
+  margin-bottom: 0.6rem;
+}
+
+/* -------------------------
+   Code & Examples
+-------------------------- */
+
+pre {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 1.2rem;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+
+/* -------------------------
+   Highlights & Notes
+-------------------------- */
+
+.highlight {
+  background: #eef2ff;
+  padding: 1rem;
+  border-left: 4px solid var(--accent);
+  margin: 1.8rem 0;
+  font-weight: 500;
+}
+
+.final-note {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-soft);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* -------------------------
+   Links & Buttons
+-------------------------- */
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.prototype-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* -------------------------
+   Sections
+-------------------------- */
+
+section {
+  margin-bottom: 2.5rem;
+}
+
+/* -------------------------
+   Responsive
+-------------------------- */
+
+@media (max-width: 900px) {
+  .layout {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  main {
+    margin-left: 0;
+    padding: 2rem 1.5rem;
+  }
+
+  .meta-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@keyframes pulse-border {
+  0% { border-color: #272a30; }
+  50% { border-color: #3b82f6; }
+  100% { border-color: #272a30; }
+}
+.simulator-wrapper:hover {
+  animation: pulse-border 2s infinite;
+}
+/* ----------------------------------
+   Epistemic Neutrality Section
+----------------------------------- */
+
+#epistemic-feedback {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: #ffffff;
+  border-left: 3px solid var(--border-soft);
+}
+
+#epistemic-feedback h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+#epistemic-feedback p {
+  color: var(--text-main);
+  max-width: 720px;
+}
+
+#epistemic-feedback ul {
+  margin-top: 1rem;
+  margin-left: 1.2rem;
+}
+
+#epistemic-feedback li {
+  margin-bottom: 0.6rem;
+  color: var(--text-muted);
+}
+
+/* Subtle emphasis for epistemic principle */
+#epistemic-feedback .final-note {
+  margin-top: 1.8rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--border-soft);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* LOGIC STATES */
+.logic-demo-box {
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-soft);
+  transition: background 0.3s ease, border-color 0.3s ease;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+/* State: Neutral */
+.state-neutral { background: #fafafa; border-color: #e4e7eb; }
+
+/* State: Logical Gap (Amber) */
+.state-gap {
+  background: #fff8ed; /* Soft Amber */
+  border-color: #fbbf24;
+  color: #92400e;
+}
+
+/* State: Contradiction (Red) */
+.state-error {
+  background: #fef2f2; /* Soft Red */
+  border-color: #f87171;
+  color: #991b1b;
+}
+
+.logic-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* VISUAL PROOF STYLING */
+.proof-container {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+}
+.proof-step {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border-soft);
+}
+.proof-step:last-child { border-bottom: none; }
+.proof-label {
+  font-weight: bold;
+  color: var(--accent);
+  width: 40px;
+}
+.proof-arrow { margin: 0 12px; color: var(--text-muted); }
+
+/* AI TRUST BADGE */
+.trust-badge {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #eab308;
+  background: #fefce8;
+  border-radius: 6px;
+  display: flex;
+  gap: 12px;
+  align-items: start;
+}
+.trust-icon { font-size: 1.2rem; }
+.trust-content strong { color: #854d0e; font-size: 0.9rem; display: block; }
+.trust-content p { margin: 4px 0 0; font-size: 0.85rem; color: #a16207; }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+  <a href="https://ankit-kumar1907.github.io/" class="back-link">← Back to Home</a>
+
+  <nav>
+    <ul>
+      <li><a href="#overview">01. Overview</a></li>
+      <li><a href="#research">02. Research & Ethics</a></li>
+      <li><a href="#feasibility">03. Feasibility</a></li>
+      <li><a href="#logic">04. Engineering Logic</a></li>
+      <li><a href="#design">05. Interface Design</a></li>
+      <li><a href="#intentionality">06. Intentionality</a></li>
+      <li><a href="#failure">07. Failure Analysis</a></li>
+      <li><a href="#roadmap">08. Future Roadmap</a></li>
+      <li><a href="#prototype">09. Prototype</a></li>
+      <li><a href="#reflection">10. Reflection</a></li>
+    </ul>
+  </nav>
+</div>
+
+<main>
+
+<!-- 01. OVERVIEW -->
+<header id="overview">
+  <h1>Aporia AI</h1>
+  <p class="intro">
+    Aporia is an AI system that prioritizes epistemic integrity over user agreement.
+    Instead of confirming user beliefs, it introduces structured friction to expose
+    logical gaps, fallacies, and unsupported conclusions.
+  </p>
+
+  <section class="meta-grid">
+    <div class="meta-item"><strong>Role</strong><br/>UX Research · Full Stack</div>
+    <div class="meta-item"><strong>Timeline</strong><br/>2 Weeks (Solo)</div>
+    <div class="meta-item"><strong>Core Tools</strong><br/>HTML · CSS · Figma</div>
+  </section>
+
+  <figure>
+    <img src="assets/screen1.png" alt="Aporia dashboard mockup">
+    <figcaption>
+      Early dashboard concept showing argument structure instead of chat bubbles.
+    </figcaption>
+  </figure>
+</header>
+
+<!-- 02. RESEARCH & ETHICS -->
+<section id="research">
+  <h2>02. Research & Ethics</h2>
+
+  <p>
+    Contemporary AI assistants are optimized for engagement and user satisfaction.
+    This creates a structural problem: systems tend to agree with users even when
+    their reasoning is internally inconsistent.
+  </p>
+
+  <p>
+    Through observation of online debates, classrooms, and technical discussions,
+    I identified recurring patterns where logical errors were emotionally reinforced
+    rather than corrected.
+  </p>
+
+  <!-- 02.5 EPISTEMIC NEUTRALITY & REACTIVE FEEDBACK -->
+<section id="epistemic-feedback">
+  <h3>Epistemic Neutrality & Reactive Visual Feedback</h3>
+
+  <p>
+    Aporia is intentionally designed to remain visually and behaviorally neutral
+    at rest. Before a user commits to an argument, the system provides no evaluative
+    signals, warnings, or guidance. This neutrality establishes psychological safety
+    and prevents premature judgment.
+  </p>
+
+  <p>
+    Evaluative feedback is introduced only after the user enters an argumentative
+    mode. At this point, the interface becomes epistemically reactive: visual changes
+    are triggered in response to the structure and quality of reasoning rather than
+    the user’s identity or intent.
+  </p>
+
+  <p>
+    Background color shifts are used as a semantic layer to reflect the epistemic
+    state of the argument. These shifts do not represent correctness or approval.
+    Instead, they indicate the type of reasoning currently detected.
+  </p>
+
+  <ul>
+    <li>Factual or empirical claims introduce cool, neutral tones.</li>
+    <li>Logical gaps between premises and conclusions trigger muted amber signals.</li>
+    <li>Recognized logical fallacies result in desaturated, non-alarming color shifts.</li>
+    <li>Internal contradictions produce soft, low-opacity red washes.</li>
+  </ul>
+
+  <p>
+    Visual feedback begins locally at the level of argument components and expands
+    only if reasoning persists. This layered approach ensures that the system
+    challenges arguments without judging the user.
+  </p>
+
+  <p class="final-note">
+    Neutrality is preserved at rest; feedback emerges only in response to committed
+    reasoning.
+  </p>
+  <div id="logic-demo" class="logic-demo-box state-neutral">
+  <h3 id="logic-status">State: Neutral Observer</h3>
+  <p id="logic-desc">The system is currently listening. No logical claims have been made.</p>
+</div>
+
+<div class="logic-controls">
+  <button class="btn" onclick="setLogicState('neutral')">Reset</button>
+  <button class="btn" onclick="setLogicState('gap')">Simulate Logical Gap</button>
+  <button class="btn" onclick="setLogicState('error')">Simulate Contradiction</button>
+</div>
+
+<script>
+  function setLogicState(state) {
+    const box = document.getElementById('logic-demo');
+    const title = document.getElementById('logic-status');
+    const desc = document.getElementById('logic-desc');
+
+    box.className = 'logic-demo-box';
+
+    switch(state) {
+      case 'neutral':
+        box.classList.add('state-neutral');
+        title.innerText = "State: Neutral Observer";
+        desc.innerText = "The system is currently listening. No logical claims have been made.";
+        break;
+      case 'gap':
+        box.classList.add('state-gap');
+        title.innerText = "⚠ Logical Gap Detected";
+        desc.innerText = "Premise A does not necessarily lead to Conclusion B.";
+        break;
+      case 'error':
+        box.classList.add('state-error');
+        title.innerText = "🛑 Internal Contradiction";
+        desc.innerText = "This claim directly opposes your previous statement.";
+        break;
+      default:
+        console.error("Unknown logic state:", state);
+    }
+  }
+</script>
+</section>
+
+  <p class="highlight">
+    Ethical Question: Is it more responsible for AI to comfort users—or to challenge them?
+  </p>
+
+</section>
+
+<!-- 03. FEASIBILITY -->
+<section id="feasibility">
+  <h2>03. Feasibility</h2>
+
+  <p>
+    Aporia does not attempt to generate absolute truth. Instead, it evaluates
+    whether conclusions logically follow from stated premises.
+  </p>
+
+  <ul>
+    <li>No custom model training required</li>
+    <li>Uses structured prompting around argument decomposition</li>
+    <li>Logic checks operate as guardrails, not verdicts</li>
+  </ul>
+
+  <p>
+    This makes the system computationally feasible while remaining philosophically
+    restrained.
+  </p>
+</section>
+
+<!-- 04. ENGINEERING LOGIC -->
+<section id="logic">
+  <h2>04. Engineering Logic</h2>
+
+  <p>
+    User input is decomposed into:
+  </p>
+
+  <ul>
+    <li><strong>Premises (P)</strong> – stated assumptions or beliefs</li>
+    <li><strong>Conclusion (C)</strong> – the claim derived from them</li>
+  </ul>
+
+  <div class="proof-container">
+  <div class="proof-step">
+    <span class="proof-label">P1</span>
+    <span>I work hard</span>
+  </div>
+  <div class="proof-step">
+    <span class="proof-label">P2</span>
+    <span>Hard work leads to success</span>
+  </div>
+  <div class="proof-step" style="background: #f0fdf4;">
+    <span class="proof-label">C</span>
+    <span class="proof-arrow">∴</span>
+    <strong>I will succeed</strong>
+  </div>
+</div>
+
+  <p>
+    The system searches for counterexamples, category mismatches,
+    and invalid inference patterns before allowing progression.
+  </p>
+</section>
+
+<!-- 05. INTERFACE DESIGN -->
+<section id="design">
+  <h2>05. Interface Design</h2>
+
+  <p>
+    Traditional chat interfaces hide reasoning structure.
+    Aporia replaces chat bubbles with an argument tree.
+  </p>
+
+  <ul>
+    <li>Nodes represent premises and conclusions</li>
+    <li>Edges represent logical dependency</li>
+    <li>Broken links are visually emphasized</li>
+  </ul>
+
+  <p>
+    Users cannot proceed until logical discontinuities are acknowledged.
+  </p>
+</section>
+
+<!-- 06. INTENTIONALITY -->
+<section id="intentionality">
+  <h2>06. Intentionality</h2>
+
+  <p>
+    Friction in Aporia is intentional, not accidental.
+    The system slows users down at moments of reasoning collapse.
+  </p>
+
+  <p>
+    Importantly, the AI never says “you are wrong.”
+    It only shows where reasoning fails to connect.
+  </p>
+</section>
+
+<!-- 07. FAILURE ANALYSIS -->
+<section id="failure">
+  <h2>07. Failure Analysis</h2>
+
+  <p>
+    Early tests revealed a risk of intellectual intimidation.
+    Users felt “judged” when logic was presented without context.
+  </p>
+
+  <p>
+    To address this, I introduced:
+  </p>
+<div class="trust-badge">
+  <span class="trust-icon">⚖️</span>
+  <div class="trust-content">
+    <strong>Confidence Score: 64%</strong>
+    <p>This conclusion is statistically probable but lacks primary source verification.</p>
+  </div>
+</div>
+
+  <ul>
+    <li>Neutral language</li>
+    <li>Optional depth controls</li>
+    <li>Explicit uncertainty markers</li>
+  </ul>
+</section>
+
+<!-- 08. FUTURE ROADMAP -->
+<section id="roadmap">
+  <h2>08. Future Roadmap</h2>
+
+  <ul>
+    <li>Multi-agent debate mode (Advocate vs Adversary)</li>
+    <li>Argument acceptability scoring</li>
+    <li>Educational deployment for classrooms</li>
+    <li>AI auditing tools for misinformation</li>
+  </ul>
+</section>
+
+<!-- 09. PROTOTYPE -->
+<section id="prototype">
+  <h2>09. Live Prototype</h2>
+
+  <p>
+    A low-fidelity prototype was created to test argument visualization
+    and friction gates.
+  </p>
+
+  <a class="prototype-link" href="apori.html">
+    View Prototype 
+  </a>
+</section>
+
+<!-- 10. REFLECTION -->
+<section id="reflection">
+  <h2>10. Reflection</h2>
+
+  <p>
+    This project challenged my assumption that good UX always minimizes effort.
+    I learned that intellectual respect sometimes requires resistance.
+  </p>
+
+  <p class="final-note">
+    Aporia is not designed to win arguments—but to make reasoning visible.
+  </p>
+</section>
+
+</main>
+
+</body>
+</html>
